@@ -1,0 +1,128 @@
+КАК ЗАГРУЗИТЬ ПРОЕКТ НА GITHUB
+================================
+
+1. Создайте репозиторий на GitHub
+----------------------------------
+
+Откройте страницу:
+
+https://github.com/GT15598?tab=repositories
+
+Нажмите кнопку «Новое» и создайте репозиторий:
+
+Repository name: averikk
+Visibility: Public
+
+Не добавляйте при создании:
+- README
+- .gitignore
+- License
+
+Репозиторий должен быть пустым.
+
+
+2. Отправьте проект на GitHub
+------------------------------
+
+Откройте PowerShell и выполните:
+
+cd "C:\Users\Шерхан\Desktop\Шерхан\Проекты\Бизнес проект\question_generator_pro"
+
+git remote add origin https://github.com/GT15598/averikk.git
+git push -u origin main
+
+Если GitHub попросит авторизацию:
+
+Username: GT15598
+Password: GitHub Personal Access Token
+
+Обычный пароль GitHub вместо пароля использовать нельзя.
+
+
+3. Проверьте проект
+--------------------
+
+Откройте в браузере:
+
+https://github.com/GT15598/averikk
+
+Проверьте, что там появились:
+
+- app.py
+- web_app.py
+- templates
+- static
+- requirements.txt
+- README.md
+- .github/workflows/ci.yml
+- CONTRIBUTING.md
+
+
+4. Как работать пяти разработчикам
+-----------------------------------
+
+Нельзя всем напрямую отправлять изменения в main.
+
+Каждый разработчик создаёт отдельную ветку:
+
+git checkout main
+git pull
+git checkout -b feature/название-задачи
+
+После изменений нужно проверить Python:
+
+python -m py_compile app.py web_app.py
+
+Затем сохранить и отправить ветку:
+
+git add .
+git commit -m "Описание изменения"
+git push -u origin feature/название-задачи
+
+После этого разработчик создаёт Pull Request в ветку main.
+
+Изменения попадают в main только после проверки CI и одобрения другого разработчика.
+
+
+5. Защита ветки main
+---------------------
+
+На GitHub откройте:
+
+Settings -> Branches -> Add branch ruleset
+
+Настройте:
+
+- Branch name: main
+- Require a pull request before merging
+- Require approvals: минимум 1
+- Require status checks to pass
+- Block force pushes
+- Block deletions
+
+Это не позволит случайно сломать общую ветку.
+
+
+6. Важное предупреждение о базе данных
+---------------------------------------
+
+Файл questionforge.sqlite3 публикуется вместе с проектом.
+
+Он станет доступен всем, потому что репозиторий Public.
+Не загружайте в приложение личные документы, секреты, пароли или персональные данные.
+
+Файл .env публиковать нельзя.
+OPENAI_API_KEY должен храниться только локально в файле .env.
+
+
+7. Проверка состояния Git
+-------------------------
+
+git remote -v
+git status
+git branch
+
+Текущая основная ветка:
+
+main
+
